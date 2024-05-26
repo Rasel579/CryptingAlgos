@@ -1,4 +1,5 @@
 import ui.CryptoMethodUI;
+import ui.MainFrame;
 
 import java.util.concurrent.Executors;
 
@@ -6,7 +7,7 @@ import java.util.concurrent.Executors;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        CryptoMethodUI ui = new CryptoMethodUI();
+        MainFrame ui = new MainFrame();
         Executors.newCachedThreadPool().submit(() -> {
             try {
                 ui.initUi();

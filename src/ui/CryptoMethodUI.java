@@ -124,12 +124,6 @@ public class CryptoMethodUI {
         mainFrame.setSize( 400,  500);
         mainFrame.setMaximumSize(new Dimension( 400, 500 ) );
         mainFrame.setLocationRelativeTo(null);
-        mainFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                System.exit(0);
-            }
-        });
 
         return mainFrame;
     }
