@@ -4,18 +4,16 @@ import data.AilerMethod;
 import data.AratosfenMethod;
 import data.EwqlidMethod;
 import data.LinearEstimate;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class CryptoMethodUI {
-    private JFrame mainFrame;
-    private JPanel mainPanel;
+
     public void initUi(){
-        mainPanel = new JPanel();
-        mainFrame = createMainFrame();
+        JPanel mainPanel = new JPanel();
+        JFrame mainFrame = createMainFrame();
 
         JPanel actionPanel = new JPanel();
         actionPanel.setBorder(BorderFactory.createTitledBorder(""));
@@ -84,6 +82,16 @@ public class CryptoMethodUI {
         actionPanel.add( estimateAilerBtnPanel, BorderLayout.CENTER );
         mainPanel.add(actionPanel);
 
+        JPanel southPanel = getSouthPanel(equalField);
+
+        mainFrame.add(actionPanel, BorderLayout.NORTH );
+        mainFrame.add( equalPanel, BorderLayout.CENTER );
+        mainFrame.add( southPanel, BorderLayout.SOUTH );
+        mainFrame.setVisible( true );
+    }
+
+    @NotNull
+    private static JPanel getSouthPanel(JLabel equalField) {
         JPanel southPanel = new JPanel();
 
         JLabel thirdNumberTitle = new JLabel( "a"  );
@@ -95,12 +103,10 @@ public class CryptoMethodUI {
         JButton estimateLinearBtn = new JButton( "Расчитать Линейное уравнение" );
         estimateLinearBtn.addActionListener( a -> {
             try {
-                equalField.setText( "x="+String.valueOf( LinearEstimate.estimate( Integer.parseInt(thirdNumber.getText() ) , Integer.parseInt( forthNumber.getText() ), Integer.parseInt( mNumber.getText() ) ) + "mod" + mNumber.getText() ) );
+                equalField.setText( "x="+LinearEstimate.estimate( Integer.parseInt(thirdNumber.getText() ) , Integer.parseInt( forthNumber.getText() ), Integer.parseInt( mNumber.getText() ) ) + "mod" + mNumber.getText() );
             } catch ( Exception e){
                 equalField.setText( "Неправильный формат чисел" );
             }
-
-
         } );
 
         southPanel.add(thirdNumberTitle);
@@ -110,11 +116,7 @@ public class CryptoMethodUI {
         southPanel.add(mNumberTitle);
         southPanel.add(mNumber);
         southPanel.add(estimateLinearBtn);
-
-        mainFrame.add( mainPanel, BorderLayout.NORTH );
-        mainFrame.add( equalPanel, BorderLayout.CENTER );
-        mainFrame.add( southPanel, BorderLayout.SOUTH );
-        mainFrame.setVisible( true );
+        return southPanel;
     }
 
     private JFrame createMainFrame() {
@@ -124,12 +126,6 @@ public class CryptoMethodUI {
         mainFrame.setSize( 400,  500);
         mainFrame.setMaximumSize(new Dimension( 400, 500 ) );
         mainFrame.setLocationRelativeTo(null);
-        mainFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                System.exit(0);
-            }
-        });
 
         return mainFrame;
     }
