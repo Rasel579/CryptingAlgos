@@ -1,4 +1,3 @@
-import ui.CryptoMethodUI;
 import ui.MainFrame;
 
 import java.util.concurrent.Executors;

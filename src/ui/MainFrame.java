@@ -2,45 +2,48 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+
+import static ui.EncryptingUI.getFrame;
 
 public class MainFrame {
 
-    private JFrame mainFrame;
-    private JPanel mainPanel;
     public void initUi(){
 
-        mainPanel = new JPanel();
-        mainFrame = createMainFrame();
+        JPanel mainPanel = new JPanel();
+        JFrame mainFrame = createMainFrame();
 
         JPanel actionPanel = new JPanel();
         actionPanel.setBorder(BorderFactory.createTitledBorder(""));
 
-        JButton estimateBtn = new JButton( "Открыть теорию чисел" );
-        estimateBtn.addActionListener( a -> {
+        JButton chooseBtn = new JButton( "Открыть теорию чисел" );
+        chooseBtn.addActionListener( a -> {
             CryptoMethodUI ui = new CryptoMethodUI();
             ui.initUi();
         });
-        actionPanel.add(estimateBtn);
+
+        JButton encryptUiBtn = new JButton( "Открыть Шифрование Сообщений" );
+        encryptUiBtn.addActionListener(MainFrame::actionPerformed);
+
+        JButton encryptUiBtnElGamal = new JButton( "Открыть Шифрование Сообщений El Gamal" );
+        encryptUiBtnElGamal.addActionListener( a -> {
+            EncryptionGamalUi uiSEncrypt = new EncryptionGamalUi();
+            uiSEncrypt.initUi();
+        });
+
+        actionPanel.add(chooseBtn);
+        actionPanel.add(encryptUiBtn);
+        actionPanel.add(encryptUiBtnElGamal);
         mainFrame.add(actionPanel);
-        mainFrame.add( mainPanel, BorderLayout.NORTH );
+        mainFrame.add(mainPanel, BorderLayout.NORTH );
         mainFrame.setVisible( true );
     }
     private JFrame createMainFrame() {
-        JFrame mainFrame = new JFrame();
-        mainFrame.setTitle( "Number Theory" );
-        mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mainFrame.setSize( 400,  500);
-        mainFrame.setMaximumSize(new Dimension( 400, 500 ) );
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        return getFrame();
+    }
 
-        return mainFrame;
+    private static void actionPerformed(ActionEvent a) {
+        EncryptingUI uiSEncrypt = new EncryptingUI();
+        uiSEncrypt.initUi();
     }
 }
