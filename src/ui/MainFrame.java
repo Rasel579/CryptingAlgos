@@ -31,9 +31,16 @@ public class MainFrame {
             uiSEncrypt.initUi();
         });
 
+        JButton hashEncryptUiBtnElGamal = new JButton( "Открыть Проверку подписей сообщений" );
+        hashEncryptUiBtnElGamal.addActionListener( a -> {
+            HashEncryptionUi uiSEncrypt = new HashEncryptionUi();
+            uiSEncrypt.initUi();
+        });
+
         actionPanel.add(chooseBtn);
         actionPanel.add(encryptUiBtn);
         actionPanel.add(encryptUiBtnElGamal);
+        actionPanel.add(hashEncryptUiBtnElGamal);
         mainFrame.add(actionPanel);
         mainFrame.add(mainPanel, BorderLayout.NORTH );
         mainFrame.setVisible( true );

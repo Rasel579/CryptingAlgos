@@ -1,8 +1,6 @@
 package ui;
 
-import data.ElGamalEncryption;
 import data.HashEncryption;
-import data.SymmetricEncryptingUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -10,17 +8,16 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class EncryptionGamalUi {
-
+public class HashEncryptionUi {
     public void  initUi(){
         JPanel mainPanel = new JPanel();
         JFrame mainFrame = createMainFrame();
 
-        ElGamalEncryption encriptions = new ElGamalEncryption();
+        HashEncryption encriptions = new HashEncryption();
 
         JLabel inputTitle = new JLabel( "Введите сообщение" );
         JTextField inputText = new JTextField("",10);
-        JLabel outputTitle = new JLabel( "Результат" );
+        JLabel outputTitle = new JLabel( "Хэш сообщения" );
         JLabel outputText = new JLabel("");
 
         mainPanel.add(inputTitle);
@@ -31,18 +28,16 @@ public class EncryptionGamalUi {
         JButton encryptBtn = new JButton( "Зашифровать сообщение" );
         encryptBtn.addActionListener( a -> {
             try {
-                HashEncryption hash  = new HashEncryption();
-                hash.encrypt( inputText.getText() );
                 outputText.setText( encriptions.encrypt( inputText.getText() ));
             } catch ( Exception e){
                 outputText.setText( "Ошибка" );
             }
         } );
 
-        JButton decryptBtn = new JButton( "Расшифровать сообщение" );
+        JButton decryptBtn = new JButton( "Проверить подпись сообщения" );
         decryptBtn.addActionListener( a -> {
             try {
-                outputText.setText( encriptions.decryptMessage() );
+                outputText.setText( encriptions.decrypt() );
             } catch ( Exception e){
                 outputText.setText( "Ошибка" );
             }
@@ -77,4 +72,3 @@ public class EncryptionGamalUi {
         return mainFrame;
     }
 }
-

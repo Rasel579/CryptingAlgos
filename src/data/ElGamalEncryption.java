@@ -24,6 +24,11 @@ public class ElGamalEncryption {
         StringBuilder resultCryptedMessage = new StringBuilder();
         cryptedMessage.clear();
         long K = 4;
+
+        while ( EwqlidMethod.estimate( (int)K , (int)P - 1 ) == 1 ){
+            K = (long) (Math.random() * (P - 1) );
+        }
+
         long a = ((long)Math.pow(G, K)) % P;
         for ( int i = 0; i < message.length(); i++){
             long charCode = semanticMap.get(message.charAt(i));
